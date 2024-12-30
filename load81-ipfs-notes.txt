@@ -1,0 +1,18 @@
+
+About:
+------
+
+The idea is to have LOAD81 as a 'front-end' to as much of the
+IPFS ecosystem as feasible, and eventually .. save and serve 
+LOAD81 scripts from IPFS, itself.
+
+
+TODO:
+-----
+
+	Use cpp-ipfs-http-client
+	https://github.com/vasild/cpp-ipfs-http-client.git
+	
+	Expose as much as possible to LOAD81's Lua VM.
+
+
