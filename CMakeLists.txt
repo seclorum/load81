@@ -45,7 +45,7 @@ if(APPLE)
 endif()
 
 # IPFS
-add_subdirectory (lib/ipfs-http-client)
+add_subdirectory (lib/cpp-ipfs-https-client)
 
 
 # Compiler flags
