@@ -71,6 +71,13 @@ set_target_properties(lua_lib PROPERTIES
 # Define the executable
 add_executable(load81 ${SOURCES})
 
+# Custom command to set macOS quarantine attribute
+#add_custom_command(
+#    TARGET load81 POST_BUILD
+#    COMMAND bash -c "/usr/bin/xattr -w com.apple.quarantine \"0002;\$(printf %x \$(date +%s));load81;\$(/usr/bin/uuidgen)\" load81"
+#    COMMENT "Setting macOS quarantine attribute for load81"
+#)
+
 # Link the libraries
 target_link_libraries(load81
     lua_lib
