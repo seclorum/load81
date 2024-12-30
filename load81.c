@@ -481,6 +481,7 @@ int processSdlEvents(void) {
 
     resetEvents();
     while (SDL_PollEvent(&event)) {
+		SDL_PumpEvents();
         switch(event.type) {
         case SDL_KEYDOWN:
             switch(event.key.keysym.sym) {

@@ -31,6 +31,7 @@ frameBuffer *createFrameBuffer(int width, int height, int bpp, int fullscreen) {
     fb->width = width;
     fb->height = height;
     fb->screen = sdlInit(width,height,bpp,fullscreen);
+	SDL_PumpEvents();
     SDL_initFramerate(&fb->fps_mgr);
     /* Load the bitmap font */
     bfLoadFont((char**)BitmapFont);
