@@ -39,6 +39,8 @@ endif()
 #find_package(SDL_gfx REQUIRED)
 #find_package(SDL_image REQUIRED)
 
+# IPFS
+add_subdirectory (lib/ipfs-http-client)
 
 # Compiler flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wall -W")
@@ -85,6 +87,7 @@ target_link_libraries(load81
     ${SDL_LIBRARY}
     ${SDL_GFX_LIBRARY}
     ${SDL_IMAGE_LIBRARY}
+	ipfs-http-client
 )
 
 # Ensure liblua is built before load81
