@@ -1,3 +1,6 @@
 [submodule "lib/ipfs-http-client"]
 	path = lib/ipfs-http-client
 	url = https://github.com/vasild/cpp-ipfs-http-client.git
+[submodule "lib/cpp-ipfs-api"]
+	path = lib/cpp-ipfs-api
+	url = https://github.com/linas/cpp-ipfs-api.git

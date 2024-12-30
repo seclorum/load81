@@ -1,5 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
-project(load81 C)
+cmake_minimum_required(VERSION 3.10) 
+
+#project(load81 C)
+project(load81 LANGUAGES C CXX)
 
 # Set CMake to use C99 standard
 set(CMAKE_C_STANDARD 99)
@@ -8,7 +10,6 @@ set(CMAKE_C_STANDARD 99)
 find_package(SDL REQUIRED)
 find_library(SDL_IMAGE_LIBRARY SDL_image REQUIRED)
 find_library(SDL_GFX_LIBRARY SDL_gfx REQUIRED)
-
 
 # Include directories
 include_directories(
@@ -23,8 +24,14 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/lua/src
 )
 
-# Platform-specific customizations
+# Platform-specific customizations - please use homebrew
 if(APPLE)
+	set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+	set(CMAKE_HAVE_THREADS_LIBRARY 1)
+    set(CMAKE_USE_WIN32_THREADS_INIT 0)
+    set(CMAKE_USE_PTHREADS_INIT 1)
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+	set(JSON_FOR_MODERN_CXX_INCLUDE_DIR "/usr/local/Cellar/nlohmann-json/3.11.3/include/")
     include_directories(
 		/usr/local/Cellar/sdl_gfx/2.0.27/include/SDL/
 		/usr/local/Cellar/sdl_image/1.2.12_10/include/SDL/
@@ -32,15 +39,15 @@ if(APPLE)
 		/usr/local/Cellar/sdl_net/1.2.8_1/include/SDL/
 		/usr/local/Cellar/sdl_rtf/0.1.0/include/SDL/
 		/usr/local/Cellar/sdl_sound/1.0.3_2/include/SDL/
-		/usr/local/Cellar/sdl_ttf/include/SDL)
+		/usr/local/Cellar/sdl_ttf/include/SDL
+		/usr/local/Cellar/nlohmann-json/3.11.3/include/
+	)
 endif()
-
-# Find SDL dependencies
-#find_package(SDL_gfx REQUIRED)
-#find_package(SDL_image REQUIRED)
 
 # IPFS
 add_subdirectory (lib/ipfs-http-client)
+add_subdirectory (lib/cpp-ipfs-api)
+
 
 # Compiler flags
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -Wall -W")
@@ -66,6 +73,7 @@ add_custom_target(liblua ALL
 
 # Add the library to the linker path
 add_library(lua_lib STATIC IMPORTED)
+
 set_target_properties(lua_lib PROPERTIES
     IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lua/src/liblua.a
 )
@@ -87,7 +95,6 @@ target_link_libraries(load81
     ${SDL_LIBRARY}
     ${SDL_GFX_LIBRARY}
     ${SDL_IMAGE_LIBRARY}
-	ipfs-http-client
 )
 
 # Ensure liblua is built before load81
